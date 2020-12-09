@@ -18,7 +18,7 @@ export async function getAllStudent() {
 
 export async function getSingleStudent(id) {
   try {
-    const response = await fetch(`http://localhost:3001/students${id}`, {
+    const response = await fetch(`http://localhost:3001/students/${id}`, {
       method: "GET",
     });
     if (response.ok) {
@@ -46,15 +46,16 @@ export async function postStudent(student) {
     if (response.status === 200) {
       return "An account has been created with the same email address!";
     } else if (response.status === 201) {
-      const data = response.json();
+      const data = await response.json();
+      console.log(data);
       return data;
     } else {
       const error = await response.json();
 
-      throw new Error(error);
+      return error;
     }
   } catch (error) {
-    throw new Error(error);
+    return error;
   }
 }
 

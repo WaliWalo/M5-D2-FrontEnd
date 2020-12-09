@@ -35,6 +35,12 @@ export default class StudentForm extends Component {
       );
       if (typeof result === "string") {
         this.setState({ submitResult: result });
+      } else if (result.errors) {
+        let error = result.errors.reduce(
+          (accumulator, currentValue) => accumulator + currentValue.msg,
+          ""
+        );
+        this.setState({ submitResult: error });
       }
       this.setState({ submitted: true, loading: false });
       let hideModal = this.props.onHide;
@@ -46,10 +52,20 @@ export default class StudentForm extends Component {
         this.setState({ loading: true });
         this.setState({ emailValid: true });
         const result = await postStudent(this.state.student);
+        console.log(result.errors);
         if (typeof result === "string") {
           this.setState({ submitResult: result });
+        } else if (result.errors) {
+          let error = result.errors.reduce(
+            (accumulator, currentValue) => accumulator + currentValue.msg,
+            ""
+          );
+          this.setState({ submitResult: error });
         }
-        this.setState({ submitted: true, loading: false });
+        this.setState({
+          submitted: true,
+          loading: false,
+        });
         modify();
       } else {
         this.setState({ emailValid: false });

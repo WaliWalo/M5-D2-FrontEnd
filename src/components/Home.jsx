@@ -39,6 +39,7 @@ export default class Home extends Component {
                   <th>Last Name</th>
                   <th>Email</th>
                   <th>Date of Birth</th>
+                  <th>Number of Projects</th>
                   <th></th>
                 </tr>
               </thead>

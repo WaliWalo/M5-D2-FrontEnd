@@ -38,6 +38,11 @@ export default class ListStudents extends Component {
           <td>{this.props.student.surname}</td>
           <td>{this.props.student.email}</td>
           <td>{this.props.student.dob}</td>
+          {this.props.student.numberOfProjects ? (
+            <td>{this.props.student.numberOfProjects}</td>
+          ) : (
+            <td>0</td>
+          )}
           <td>
             <Button variant="dark" onClick={this.handleShow}>
               Update
