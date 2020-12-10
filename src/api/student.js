@@ -95,3 +95,64 @@ export async function deleteStudent(id) {
     throw new Error(error);
   }
 }
+
+export async function getStudentProjects(id) {
+  try {
+    const response = await fetch(
+      `http://localhost:3001/students/${id}/projects`,
+      {
+        method: "GET",
+      }
+    );
+    if (response.ok) {
+      const data = await response.json();
+      return data;
+    } else {
+      const error = await response.json();
+      return error;
+    }
+  } catch (error) {
+    return error;
+  }
+}
+
+export async function postStudentImg(id, file) {
+  try {
+    console.log(file);
+    let formData = new FormData();
+    formData.append("avatar", file, file.name);
+    const response = await fetch(
+      `http://localhost:3001/students/${id}/uploadPhoto`,
+      { method: "POST", body: formData }
+    );
+    if (response.ok) {
+      const data = await response.json();
+      return data;
+    } else {
+      const error = await response.json();
+      return error;
+    }
+  } catch (error) {
+    return error;
+  }
+}
+
+export async function getProfileImg(id) {
+  try {
+    const response = await fetch(
+      `http://localhost:3001/students/${id}/uploadPhoto`,
+      {
+        method: "GET",
+      }
+    );
+    if (response.ok) {
+      const data = response.json();
+      return data;
+    } else {
+      const error = response.json();
+      return error;
+    }
+  } catch (error) {
+    return error;
+  }
+}

@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import { Button } from "react-bootstrap";
+import { withRouter } from "react-router-dom";
 import { deleteStudent } from "../api/student";
 import MyModal from "./MyModal";
 
-export default class ListStudents extends Component {
+class ListStudents extends Component {
   state = {
     show: false,
   };
@@ -32,7 +33,11 @@ export default class ListStudents extends Component {
           student={this.props.student}
           modified={this.props.modified}
         />
-        <tr>
+        <tr
+          onClick={() =>
+            this.props.history.push(`/studentDetail/${this.props.student.id}`)
+          }
+        >
           <td>{this.props.index}</td>
           <td>{this.props.student.name}</td>
           <td>{this.props.student.surname}</td>
@@ -56,3 +61,5 @@ export default class ListStudents extends Component {
     );
   }
 }
+
+export default withRouter(ListStudents);

@@ -6,12 +6,25 @@ import SingleProject from "./SingleProject";
 export default class Projects extends Component {
   state = {
     projects: [],
+    modified: false,
+  };
+
+  handleModified = () => {
+    this.setState({ modified: true });
   };
 
   componentDidMount = async () => {
     const projects = await getAllProjects();
     this.setState({ projects });
   };
+
+  componentDidUpdate = async (prevProp, prevState) => {
+    if (this.state.modified !== prevState.modified) {
+      const projects = await getAllProjects();
+      this.setState({ projects, modified: true });
+    }
+  };
+
   render() {
     return (
       <div>
@@ -35,6 +48,7 @@ export default class Projects extends Component {
                     project={project}
                     key={index}
                     index={index + 1}
+                    modified={this.handleModified}
                   />
                 );
               })}
