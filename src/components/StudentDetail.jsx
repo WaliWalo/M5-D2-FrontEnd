@@ -42,6 +42,10 @@ class StudentDetail extends Component {
   };
 
   componentDidMount = async () => {
+    this.fetches();
+  };
+
+  fetches = async () => {
     const student = await getSingleStudent(this.props.match.params.id);
     this.setState({ student: student[0] });
     const projects = await getStudentProjects(this.props.match.params.id);
@@ -77,8 +81,9 @@ class StudentDetail extends Component {
       //   this.props.history.push("/");
       //   this.props.history.goBack();
       // }, 50);
-      this.props.history.push("/");
-      this.props.history.goBack();
+      window.location.replace(`/studentDetail/${this.props.match.params.id}`);
+      //this.props.history.push(`/studentDetail/${this.props.match.params.id}`);
+      // this.props.history.goBack();
     }
   };
 

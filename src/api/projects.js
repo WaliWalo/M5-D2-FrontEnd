@@ -16,6 +16,45 @@ export async function getAllProjects() {
   }
 }
 
+export async function getProject(id) {
+  try {
+    const response = await fetch(`http://localhost:3001/projects/${id}`, {
+      method: "GET",
+    });
+    if (response.ok) {
+      const data = response.json();
+      return data;
+    } else {
+      const error = await response.json();
+
+      return error;
+    }
+  } catch (error) {
+    return error;
+  }
+}
+
+export async function getReviews(id) {
+  try {
+    const response = await fetch(
+      `http://localhost:3001/projects/${id}/reviews`,
+      {
+        method: "GET",
+      }
+    );
+    if (response.ok) {
+      const data = response.json();
+      return data;
+    } else {
+      const error = await response.json();
+
+      return error;
+    }
+  } catch (error) {
+    return error;
+  }
+}
+
 export async function postProject(project) {
   try {
     const response = await fetch("http://localhost:3001/projects", {

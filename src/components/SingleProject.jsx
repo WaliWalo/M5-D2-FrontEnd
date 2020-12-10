@@ -2,8 +2,9 @@ import React, { Component } from "react";
 import { getSingleStudent } from "../api/student";
 import { Button, Image } from "react-bootstrap";
 import { deleteProject } from "../api/projects.js";
+import { withRouter } from "react-router-dom";
 
-export default class SingleProject extends Component {
+class SingleProject extends Component {
   state = {
     student: {},
   };
@@ -22,7 +23,11 @@ export default class SingleProject extends Component {
 
   render() {
     return (
-      <tr>
+      <tr
+        onClick={() =>
+          this.props.history.push(`/projectDetail/${this.props.project.id}`)
+        }
+      >
         <td>{this.props.index}</td>
         <td>
           <Image
@@ -52,3 +57,4 @@ export default class SingleProject extends Component {
     );
   }
 }
+export default withRouter(SingleProject);
